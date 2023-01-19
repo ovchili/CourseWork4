@@ -42,7 +42,20 @@ module.exports = {
 		rules: [
 			{
 				test: /\.pug$/,
-				loader: PugPlugin.loader,
+				oneOf: [
+					// import Pug in JavaScript/TypeScript as template function
+					{
+						issuer: /\.(js|ts)$/, // match scripts where Pug is used
+						loader: PugPlugin.loader,
+						options: {
+							method: "compile", // compile Pug into template function
+						},
+					},
+					// render Pug from Webpack entry into static HTML
+					{
+						loader: PugPlugin.loader, // default method is 'render'
+					},
+				],
 			},
 			{
 				test: /\.(css|sass|scss)$/,
