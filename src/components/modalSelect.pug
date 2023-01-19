@@ -1,0 +1,13 @@
+.container
+    form.choice
+        header.choice__header
+            h2 Choose the difficulty
+        main.choice__select
+            input(type="radio", name="difficult", id="difficult_easy" value="easy")
+            label(for="difficult_easy") 1
+            input(type="radio", name="difficult", id="difficult_medium" value="medium")
+            label(for="difficult_medium") 2
+            input(type="radio", name="difficult", id="difficult_hard" value="hard" )
+            label(for="difficult_hard") 3
+        footer
+            button.btn.btn__start Start Game
