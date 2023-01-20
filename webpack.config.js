@@ -1,85 +1,81 @@
 const path = require("path");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+const PugPlugin = require("pug-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const isProd = process.env.NODE_ENV === "production";
-const isDev = !isProd;
-
-const filename = (ext) => (isProd ? `bundle.${ext}` : `bundle.[hash].${ext}`);
-
-const jsLoaders = () => {
-	const loaders = [
-		{
-			loader: "babel-loader",
-			options: {
-				presets: ["@babel/preset-env"],
-			},
-		},
-	];
-
-	if (isDev) {
-		loaders.push("eslint-loader");
-	}
-
-	return loaders;
-};
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-	context: path.resolve(__dirname, "./src"),
-	mode: "development",
-	entry: ["@babel/polyfill", "./index.js"],
-	output: {
-		filename: filename("js"),
-		path: path.resolve(__dirname, "dist"),
+	entry: {
+		// define all Pug files here
+		index: "./src/index.pug",
 	},
+
+	output: {
+		path: path.join(__dirname, "./dist/"),
+		publicPath: isDev ? "/" : "./",
+	},
+
 	resolve: {
-		extensions: [".js"],
 		alias: {
-			"@": path.resolve(__dirname, "src"),
-			"@core": path.resolve(__dirname, "src/core"),
+			// use alias to avoid relative paths like `./../../images/`
+			Images: path.join(__dirname, "./src/images/"),
+			Fonts: path.join(__dirname, "./src/fonts/"),
+			Sass: path.join(__dirname, "./src/sass/"),
 		},
 	},
-	devServer: {
-		port: 3000,
-		hot: isDev,
-	},
+
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HTMLWebpackPlugin({
-			template: "index.html",
-			minify: {
-				removeComments: isProd,
-				collapseWhitespace: isProd,
+		new PugPlugin({
+			js: {
+				// output filename of extracted JS file from source script
+				filename: "assets/js/[name].[contenthash:8].js",
+			},
+			css: {
+				// output filename of extracted CSS file from source style
+				filename: "assets/css/[name].[contenthash:8].css",
 			},
 		}),
-		new CopyPlugin({
-			patterns: [
-				{
-					from: path.resolve(__dirname, "src/favicon.ico"),
-					to: path.resolve(__dirname, "dist"),
-				},
-			],
-		}),
-		new MiniCssExtractPlugin({
-			filename: filename("css"),
-		}),
 	],
+
 	module: {
 		rules: [
 			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-					"css-loader",
-					"sass-loader",
+				test: /\.pug$/,
+				oneOf: [
+					// import Pug in JavaScript/TypeScript as template function
+					{
+						issuer: /\.(js|ts)$/, // match scripts where Pug is used
+						loader: PugPlugin.loader,
+						options: {
+							method: "compile", // compile Pug into template function
+						},
+					},
+					// render Pug from Webpack entry into static HTML
+					{
+						loader: PugPlugin.loader, // default method is 'render'
+					},
 				],
 			},
 			{
-				test: /\.m?js$/,
-				exclude: /(node_modules|bower_components)/,
-				use: jsLoaders(),
+				test: /\.(css|sass|scss)$/,
+				use: ["css-loader", "sass-loader"],
+			},
+			{
+				test: /\.(png|jpg|jpeg|ico)/,
+				type: "asset/resource",
+				generator: {
+					// output filename of images
+					filename: "assets/img/[name].[hash:8][ext]",
+				},
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
+				type: "asset/resource",
+				generator: {
+					// output filename of fonts
+					filename: "assets/fonts/[name][ext][query]",
+				},
 			},
 		],
 	},
