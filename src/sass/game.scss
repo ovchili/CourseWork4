@@ -6,6 +6,7 @@
         padding-right: calc(50% - 450px);
         overflow: hidden;
     }
+
     &__header {
         margin-top: 15px;
         height: 80px;
@@ -13,9 +14,11 @@
         justify-content: space-between;
         align-items: center;
     }
+
     &__timer {
         display: flex;
     }
+
     &__main {
         width: 100%;
         height: calc(100vh - 300px);
@@ -26,18 +29,22 @@
         align-items: center;
         justify-content: space-between;
     }
+
     &__card {
         width: 100px;
         min-width: 100px;
         height: 150px;
         position: relative;
         cursor: pointer;
+
         &_active > &_back {
             transform: rotateY(180deg);
         }
+
         &_active > &_front {
             transform: rotateY(0deg);
         }
+
         &_front,
         &_back {
             max-width: 100%;
@@ -47,14 +54,18 @@
             position: absolute;
             transition: transform 0.3s linear;
         }
+
         &_front {
             transform: rotateY(180deg);
+
             & img {
                 height: 100%;
             }
         }
+
         &_back {
             transform: rotateY(0deg);
+
             & img {
                 height: 100%;
             }
@@ -66,18 +77,18 @@
     font-weight: 400;
     font-size: 64px;
     line-height: 72px;
+
     &__divider {
+        transition-timing-function: cubic-bezier(0, 0, 1, 1);
         animation-name: blinker;
         animation-iteration-count: infinite;
         animation-duration: 1s;
-        transition-timing-function: cubic-bezier(0, 0, 1, 1);
-        -webkit-animation-name: blinker;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-duration: 1s;
-        -webkit-animation-timing-function: cubic-bezier(0, 0, 1, 1);
+        animation-timing-function: cubic-bezier(0, 0, 1, 1);
     }
+
     &__minutes {
         position: relative;
+
         &::after {
             top: -20px;
             right: 5px;
@@ -87,8 +98,10 @@
             line-height: 32px;
         }
     }
+
     &__seconds {
         position: relative;
+
         &::after {
             top: -20px;
             right: 5px;
@@ -104,15 +117,17 @@
     from {
         opacity: 1;
     }
+
     to {
         opacity: 0;
     }
 }
 
-@-webkit-keyframes blinker {
+@keyframes blinker {
     from {
         opacity: 1;
     }
+
     to {
         opacity: 0;
     }

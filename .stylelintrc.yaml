@@ -1,6 +1,6 @@
 {
     "plugins": ["stylelint-prettier"],
-    "rules": { "indentation": 4 },
+    "rules": { "indentation": 4, "no-descending-specificity": null },
     extends:
         [
             "stylelint-config-standard",
