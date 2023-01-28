@@ -1,6 +1,5 @@
 const path = require("path");
 const PugPlugin = require("pug-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -11,17 +10,18 @@ module.exports = {
     output: {
         path: path.join(__dirname, "./dist/"),
         publicPath: isDev ? "/" : "./",
+        clean: true,
     },
     resolve: {
         alias: {
             // use alias to avoid relative paths like `./../../images/`
-            Images: path.join(__dirname, "./src/images/"),
-            Fonts: path.join(__dirname, "./src/fonts/"),
-            Sass: path.join(__dirname, "./src/sass/"),
+            "@": path.resolve("./src"),
+            "@Images": path.resolve(__dirname, "./src/img/"),
+            "@Fonts": path.resolve(__dirname, "./src/fonts/"),
+            "@Sass": path.resolve(__dirname, "./src/sass/"),
         },
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new PugPlugin({
             js: {
                 // output filename of extracted JS file from source script
@@ -57,7 +57,7 @@ module.exports = {
                 use: ["css-loader", "sass-loader"],
             },
             {
-                test: /\.(png|jpg|jpeg|ico)/,
+                test: /\.(png|jpg|jpeg|svg|ico)/,
                 type: "asset/resource",
                 generator: {
                     // output filename of images
@@ -65,11 +65,11 @@ module.exports = {
                 },
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: "asset/resource",
                 generator: {
                     // output filename of fonts
-                    filename: "assets/fonts/[name][ext][query]",
+                    filename: "assets/fonts/[name].[ext][query]",
                 },
             },
         ],

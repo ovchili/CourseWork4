@@ -1,4 +1,5 @@
 @use "./font";
+@use "./game.scss";
 
 $color: #fff;
 $accent-color: #c2f5ff;
@@ -14,12 +15,12 @@ $btn-color-hover: #69a501;
 }
 
 body {
+    font-family: "Stratos Regular", sans-serif;
     background-color: $back-color;
     color: $color;
 }
 
 .container {
-    font-family: "Stratos Regular", sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -77,6 +78,7 @@ body {
 }
 
 .btn {
+    font-family: "Stratos Regular", sans-serif;
     width: 246px;
     font-size: 24px;
     line-height: 32px;
@@ -86,7 +88,9 @@ body {
     padding: 17px 0;
     cursor: pointer;
     transition: background 0.3s ease;
-
+    &__restart {
+        padding: 9px 0;
+    }
     &:hover {
         background: $btn-color-hover;
     }

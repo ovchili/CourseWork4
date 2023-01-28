@@ -1,0 +1,119 @@
+.game {
+    &__container {
+        width: 100vw;
+        height: 100vh;
+        padding-left: calc(50% - 450px);
+        padding-right: calc(50% - 450px);
+        overflow: hidden;
+    }
+    &__header {
+        margin-top: 15px;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__timer {
+        display: flex;
+    }
+    &__main {
+        width: 100%;
+        height: calc(100vh - 300px);
+        margin-top: 35px;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__card {
+        width: 100px;
+        min-width: 100px;
+        height: 150px;
+        position: relative;
+        cursor: pointer;
+        &_active > &_back {
+            transform: rotateY(180deg);
+        }
+        &_active > &_front {
+            transform: rotateY(0deg);
+        }
+        &_front,
+        &_back {
+            max-width: 100%;
+            height: auto;
+            overflow: hidden;
+            backface-visibility: hidden;
+            position: absolute;
+            transition: transform 0.3s linear;
+        }
+        &_front {
+            transform: rotateY(180deg);
+            & img {
+                height: 100%;
+            }
+        }
+        &_back {
+            transform: rotateY(0deg);
+            & img {
+                height: 100%;
+            }
+        }
+    }
+}
+
+.timer {
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    &__divider {
+        animation-name: blinker;
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+        transition-timing-function: cubic-bezier(0, 0, 1, 1);
+        -webkit-animation-name: blinker;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-timing-function: cubic-bezier(0, 0, 1, 1);
+    }
+    &__minutes {
+        position: relative;
+        &::after {
+            top: -20px;
+            right: 5px;
+            position: absolute;
+            content: "min";
+            font-size: 16px;
+            line-height: 32px;
+        }
+    }
+    &__seconds {
+        position: relative;
+        &::after {
+            top: -20px;
+            right: 5px;
+            position: absolute;
+            content: "sec";
+            font-size: 16px;
+            line-height: 32px;
+        }
+    }
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes blinker {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
