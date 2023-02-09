@@ -1,8 +1,4 @@
-const clearTimers = (timers) => {
-    timers.forEach((timer) => {
-        clearTimeout(timer);
-    });
-};
+import { clearTimers } from "../../js/helper.js";
 
 const compare = (str1, str2) => {
     return str1 === str2;

@@ -1,47 +1,13 @@
+import {
+    clearTimers,
+    formatNumber,
+    gameCards,
+    generateCard,
+} from "../../js/helper.js";
 import { renderCard } from "../blocks/card.js";
 import { startGameScreen } from "../screens/startGameScreen.js";
-
 const VALUES = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const SUITS = ["C", "D", "H", "S"];
-
-const clearTimers = (timers) => {
-    timers.forEach((timer) => {
-        clearTimeout(timer);
-    });
-};
-
-const generateCard = (values, suits) => {
-    const cards = [];
-    suits.forEach((suit) => {
-        values.forEach((value) => {
-            const card = `${value}${suit}`;
-            cards.push(card);
-        });
-    });
-    return cards;
-};
-
-const formatNumber = (number) => {
-    return number < 10 ? `0${number}` : number;
-};
-const gameCards = (cards, length) => {
-    let gameCard = [];
-    let i = 0;
-    while (i < length) {
-        const random = Math.floor(Math.random() * cards.length);
-        const card = cards.splice(random, 1)[0];
-        gameCard.push(card);
-        i++;
-    }
-
-    gameCard = [...gameCard, ...gameCard];
-    shuffle(gameCard);
-    return gameCard;
-};
-
-const shuffle = (array) => {
-    array.sort(() => Math.random() - 0.5);
-};
 
 export const GameScreen = (container) => {
     container.textContent = "";
