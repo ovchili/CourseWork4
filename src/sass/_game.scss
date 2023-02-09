@@ -1,0 +1,97 @@
+.game {
+    &__header {
+        padding: 41px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__timer {
+        display: flex;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 72px;
+    }
+
+    &__main {
+        gap: 15px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.card {
+    width: 93px;
+    min-width: 100px;
+    height: 133px;
+    position: relative;
+
+    &__label {
+        cursor: pointer;
+    }
+
+    &__input {
+        display: none;
+
+        &:checked + .card__label > .card__back {
+            transform: rotateY(180deg);
+        }
+
+        &:checked + .card__label > .card__front {
+            transform: rotateY(0deg);
+        }
+    }
+
+    &__front,
+    &__back {
+        height: auto;
+        overflow: hidden;
+        backface-visibility: hidden;
+        position: absolute;
+        transition: transform 0.3s linear;
+    }
+
+    &__front {
+        transform: rotateY(180deg);
+
+        & img {
+            height: 100%;
+        }
+    }
+
+    &__back {
+        transform: rotateY(0deg);
+
+        & img {
+            height: 100%;
+        }
+    }
+}
+
+.timer {
+    &__minutes {
+        position: relative;
+
+        &::after {
+            content: "min";
+            position: absolute;
+            font-size: 16px;
+            line-height: 32px;
+            top: -20px;
+            right: 5px;
+        }
+    }
+
+    &__seconds {
+        position: relative;
+
+        &::after {
+            content: "sec";
+            position: absolute;
+            font-size: 16px;
+            line-height: 32px;
+            top: -20px;
+            right: 5px;
+        }
+    }
+}
