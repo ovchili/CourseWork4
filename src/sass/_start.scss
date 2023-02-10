@@ -1,0 +1,57 @@
+.start {
+    &__wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__form {
+        background: $accept;
+        width: 460px;
+        padding: 50px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 12px;
+    }
+
+    &__header {
+        color: $background;
+        text-align: center;
+        width: 208px;
+        font-size: 40px;
+        line-height: 48px;
+        font-weight: 400;
+        margin-bottom: 48px;
+    }
+
+    &__box {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 67px;
+    }
+
+    &__input {
+        display: none;
+
+        &:checked + label {
+            border: 2px solid $background;
+        }
+    }
+
+    &__label {
+        width: 98px;
+        height: 98px;
+        display: flex;
+        border-radius: 12px;
+        justify-content: center;
+        align-items: center;
+        background: $color;
+        color: $color-reversed;
+        cursor: pointer;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 72px;
+    }
+}

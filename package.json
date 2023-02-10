@@ -1,50 +1,50 @@
 {
-    "name": "coursework4",
+    "name": "cardgame",
     "version": "1.0.0",
-    "description": "Pure JS Card Game",
+    "description": "JS/TS Card Game",
     "main": "index.js",
     "scripts": {
+        "dev": "cross-env NODE_ENV=development webpack serve --open",
+        "build": "cross-env NODE_ENV=production webpack --mode production",
         "format": "prettier --write ./src/",
         "lint:js": "eslint ./src/**/*.js",
         "lint:scss": "stylelint ./src/**/*.scss",
         "lint": "npm run lint:js && npm run lint:scss",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "cross-env NODE_ENV=development webpack serve --open",
-        "build": "cross-env NODE_ENV=production webpack --mode production",
         "prepare": "husky install",
-        "delete": "rm -rf ./node_modules"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ovchili/CourseWork4.git"
+        "url": "git+https://github.com/ovchili/CardGame.git"
     },
-    "author": "Oleg Chilihkin <ov.chilikhin2022@yandex.ru>",
+    "author": "Oleg Chilikhin",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/ovchili/CourseWork4/issues"
+        "url": "https://github.com/ovchili/CardGame/issues"
     },
-    "homepage": "https://github.com/ovchili/CourseWork4#readme",
+    "homepage": "https://github.com/ovchili/CardGame#readme",
     "devDependencies": {
-        "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "css-loader": "^6.7.3",
-        "eslint": "^8.32.0",
+        "eslint": "^8.33.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-prettier": "^4.2.1",
-        "file-loader": "^6.2.0",
+        "html-loader": "^4.2.0",
+        "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.3",
-        "prettier": "^2.8.3",
-        "pug-plugin": "^4.9.0",
-        "sass": "^1.57.1",
+        "mini-css-extract-plugin": "^2.7.2",
+        "prettier": "^2.8.4",
+        "sass": "^1.58.0",
         "sass-loader": "^13.2.0",
+        "style-loader": "^3.3.1",
         "stylelint": "^14.16.1",
         "stylelint-config-prettier": "^9.0.4",
+        "stylelint-config-prettier-scss": "^0.0.1",
         "stylelint-config-standard": "^29.0.0",
         "stylelint-config-standard-scss": "^6.1.0",
-        "stylelint-prettier": "^2.0.0",
-        "stylelint-scss": "^4.3.0",
         "webpack": "^5.75.0",
         "webpack-cli": "^5.0.1",
         "webpack-dev-server": "^4.11.1"
-    }
+    },
+    "private": "true"
 }

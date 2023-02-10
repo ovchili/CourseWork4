@@ -1,60 +1,42 @@
 const path = require("path");
-const PugPlugin = require("pug-plugin");
-
-const isDev = process.env.NODE_ENV === "development";
+const devMode = process.env.NODE_ENV !== "production";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: {
-        index: "./src/index.pug",
-    },
+    context: path.resolve(__dirname, "src"),
+    mode: "development",
+    entry: "./js/index.js",
     output: {
-        path: path.join(__dirname, "./dist/"),
-        publicPath: isDev ? "/" : "./",
+        filename: "bundle.[hash:8].js",
+        path: path.resolve(__dirname, "dist"),
         clean: true,
     },
     resolve: {
         alias: {
-            // use alias to avoid relative paths like `./../../images/`
-            "@": path.resolve("./src"),
-            "@Images": path.resolve(__dirname, "./src/img/"),
-            "@Fonts": path.resolve(__dirname, "./src/fonts/"),
-            "@Sass": path.resolve(__dirname, "./src/sass/"),
+            // use alias to avoid relative path like `./../../images/`
+            Images: path.resolve(__dirname, "./src/assets/img/"),
         },
     },
     plugins: [
-        new PugPlugin({
-            js: {
-                // output filename of extracted JS file from source script
-                filename: "assets/js/[name].[contenthash:8].js",
-            },
-            css: {
-                // output filename of extracted CSS file from source style
-                filename: "assets/css/[name].[contenthash:8].css",
-            },
+        new HtmlWebpackPlugin({
+            template: "index.html",
         }),
+        new MiniCssExtractPlugin(),
     ],
     module: {
         rules: [
             {
-                test: /\.pug$/,
-                oneOf: [
-                    // import Pug in JavaScript/TypeScript as template function
-                    {
-                        issuer: /\.(js|ts)$/, // match scripts where Pug is used
-                        loader: PugPlugin.loader,
-                        options: {
-                            method: "compile", // compile Pug into template function
-                        },
-                    },
-                    // render Pug from Webpack entry into static HTML
-                    {
-                        loader: PugPlugin.loader, // default method is 'render'
-                    },
-                ],
+                test: /\.html$/,
+                use: "html-loader",
             },
             {
                 test: /\.(css|sass|scss)$/,
-                use: ["css-loader", "sass-loader"],
+                use: [
+                    devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader",
+                ],
             },
             {
                 test: /\.(png|jpg|jpeg|svg|ico)/,
@@ -69,7 +51,7 @@ module.exports = {
                 type: "asset/resource",
                 generator: {
                     // output filename of fonts
-                    filename: "assets/fonts/[name].[ext][query]",
+                    filename: "assets/fonts/[name][ext][query]",
                 },
             },
         ],
