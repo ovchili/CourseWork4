@@ -6,13 +6,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     context: path.resolve(__dirname, "src"),
     mode: "development",
-    entry: "./js/index.js",
+    entry: "./js/index.ts",
     output: {
         filename: "bundle.[hash:8].js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
     },
+    devtool: process.env.NODE_ENV === "production" ? false : "source-map",
     resolve: {
+        extensions: [".ts", ".js"],
         alias: {
             // use alias to avoid relative path like `./../../images/`
             Images: path.resolve(__dirname, "./src/assets/img/"),
@@ -29,6 +31,11 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: "html-loader",
+            },
+            {
+                test: /\.ts$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
             },
             {
                 test: /\.(css|sass|scss)$/,

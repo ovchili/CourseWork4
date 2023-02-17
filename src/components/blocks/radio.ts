@@ -1,4 +1,9 @@
-export const renderRadioButton = (container, name, value, cls) => {
+export const renderRadioButton = (
+    container: HTMLElement,
+    name: string,
+    value: string,
+    cls: string[]
+) => {
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
         return;
@@ -17,11 +22,16 @@ export const renderRadioButton = (container, name, value, cls) => {
 
     radio.addEventListener("change", (e) => {
         const target = e.target;
-        window.application.game.difficult = target.value;
+        window.application.game.difficult = (target as HTMLInputElement).value;
     });
 };
 
-export const renderLabel = (container, idFor, text, cls) => {
+export const renderLabel = (
+    container: HTMLElement,
+    idFor: string,
+    text: string,
+    cls: string[]
+) => {
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
         return;

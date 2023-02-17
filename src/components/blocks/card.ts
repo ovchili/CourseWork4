@@ -1,10 +1,14 @@
-import { clearTimers } from "../../js/helper.js";
+import { clearTimers } from "../../js/helper";
 
-const compare = (str1, str2) => {
+const compare = (str1: string, str2: string) => {
     return str1 === str2;
 };
 
-export const renderCard = (container, card, id) => {
+export const renderCard = (
+    container: HTMLElement,
+    card: string,
+    id: string
+) => {
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
         return;
@@ -42,7 +46,7 @@ export const renderCard = (container, card, id) => {
     cardInput.addEventListener("change", (e) => {
         const count = window.application.game.cards.length;
         const user = window.application.user;
-        const target = e.target;
+        const target = e.target as HTMLInputElement;
         target.disabled = true;
 
         if (user.count % 2 === 0) {
