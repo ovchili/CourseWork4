@@ -3,7 +3,7 @@ import {
     formatNumber,
     gameCards,
     generateCard,
-} from "../../js/helper";
+} from "../../ts/helper";
 import { renderCard } from "../blocks/card";
 import { startGameScreen } from "./startGameScreen";
 const VALUES = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];

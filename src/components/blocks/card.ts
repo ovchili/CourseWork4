@@ -1,4 +1,5 @@
-import { clearTimers } from "../../js/helper";
+import { clearTimers } from "../../ts/helper";
+import { renderModal } from "./modal";
 
 const compare = (str1: string, str2: string) => {
     return str1 === str2;
@@ -44,6 +45,7 @@ export const renderCard = (
     cardContainer.appendChild(cardLabel);
 
     cardInput.addEventListener("change", (e) => {
+        const app = document.querySelector("#app") as HTMLElement;
         const count = window.application.game.cards.length;
         const user = window.application.user;
         const target = e.target as HTMLInputElement;
@@ -59,11 +61,11 @@ export const renderCard = (
             );
             user.count += 1;
             if (!result) {
-                alert("Вы проиграли");
+                renderModal(app, false);
                 clearTimers(window.application.timers);
                 window.application.timers = [];
             } else if (user.count === count) {
-                alert("Вы выйграли");
+                renderModal(app, true);
                 clearTimers(window.application.timers);
                 window.application.timers = [];
             } else {

@@ -16,7 +16,7 @@ export const generateCard = (values: string[], suits: string[]) => {
 };
 
 export const formatNumber = (number: number) => {
-    return number < 10 ? `0${number}` : number;
+    return number < 10 ? `0${number}` : `${number}`;
 };
 export const gameCards = (cards: string[], length: number) => {
     let gameCard = [];

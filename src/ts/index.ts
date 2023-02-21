@@ -2,7 +2,6 @@ import { startGameScreen } from "../components/screens/startGameScreen";
 import "../sass/main.scss";
 declare global {
     interface Window {
-        // ⚠️ notice that "Window" is capitalized here
         application: {
             counts: { [key: string]: number };
             timers: Array<NodeJS.Timer>;
