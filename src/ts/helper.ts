@@ -15,11 +15,11 @@ export const generateCard = (values: string[], suits: string[]) => {
     return cards;
 };
 
-export const formatNumber = (number: number) => {
+export const formatNumber = (number: number): string => {
     return number < 10 ? `0${number}` : `${number}`;
 };
-export const gameCards = (cards: string[], length: number) => {
-    let gameCard = [];
+export const gameCards = (cards: string[], length: number): Array<string> => {
+    let gameCard: Array<string> = [];
     let i = 0;
     while (i < length) {
         const random = Math.floor(Math.random() * cards.length);
