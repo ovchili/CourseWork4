@@ -1,6 +1,6 @@
-import { renderRadioButton, renderLabel } from "../blocks/radio.js";
-import { GameScreen } from "./GameScreen.js";
-export const startGameScreen = (container) => {
+import { renderLabel, renderRadioButton } from "../blocks/radio";
+import { GameScreen } from "./GameScreen";
+export const startGameScreen = (container: HTMLElement) => {
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
         return;
@@ -36,7 +36,7 @@ export const startGameScreen = (container) => {
 
     btn.addEventListener("click", (e) => {
         e.preventDefault();
-        const app = document.querySelector("#app");
+        const app = document.querySelector("#app") as HTMLElement;
         GameScreen(app);
     });
 };

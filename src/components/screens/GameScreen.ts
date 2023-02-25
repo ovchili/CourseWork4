@@ -1,20 +1,15 @@
-import {
-    clearTimers,
-    formatNumber,
-    gameCards,
-    generateCard,
-} from "../../js/helper.js";
-import { renderCard } from "../blocks/card.js";
-import { startGameScreen } from "../screens/startGameScreen.js";
+import { formatNumber, gameCards, generateCard } from "../../ts/helper";
+import { renderButton } from "../blocks/button";
+import { renderCard } from "../blocks/card";
 const VALUES = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const SUITS = ["C", "D", "H", "S"];
 
-export const GameScreen = (container) => {
+export const GameScreen = (container: HTMLElement) => {
     container.textContent = "";
     window.application.cards = generateCard(VALUES, SUITS);
     window.application.game.cards = gameCards(
         window.application.cards,
-        window.application.counts[window.application.game.difficult]
+        window.application.counts[`${window.application.game.difficult}`]
     );
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
@@ -45,51 +40,38 @@ export const GameScreen = (container) => {
     btnBox.classList.add("game__btn");
     header.appendChild(btnBox);
 
-    const btn = document.createElement("button");
-    btn.classList.add("btn");
-    btn.textContent = "Начать заново";
-    btnBox.appendChild(btn);
+    renderButton(btnBox, "Начать заново");
 
     const main = document.createElement("main");
     main.classList.add("game__main");
     container.appendChild(main);
     for (let i = 0; i < window.application.game.cards.length; i++) {
         const element = window.application.game.cards[i];
-        renderCard(main, element, i);
+        renderCard(main, element, `${i}`);
     }
 
-    const inputs = document.querySelectorAll(".card__input");
+    const inputs: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll(".card__input");
     setTimeout(() => {
-        inputs.forEach((input) => {
+        inputs.forEach((input: HTMLInputElement) => {
             input.checked = false;
         });
         window.application.timers.push(
             setInterval(() => {
-                window.application.game.timer += 1;
-                const timerMin = document.querySelector(".timer__minutes");
-                const timerSec = document.querySelector(".timer__seconds");
-                timerMin.textContent = formatNumber(
-                    Math.floor(window.application.game.timer / 60)
-                );
-                timerSec.textContent = formatNumber(
-                    window.application.game.timer % 60
-                );
+                window.application.game.time += 1;
+                const timerMin = document.querySelector(
+                    ".timer__minutes"
+                ) as HTMLElement;
+                const timerSec = document.querySelector(
+                    ".timer__seconds"
+                ) as HTMLElement;
+                timerMin.textContent = `${formatNumber(
+                    Math.floor(window.application.game.time / 60)
+                )}`;
+                timerSec.textContent = `${formatNumber(
+                    Math.floor(window.application.game.time % 60)
+                )}`;
             }, 1000)
         );
     }, 5000);
-
-    btn.addEventListener("click", () => {
-        const timers = window.application.timers;
-        clearTimers(timers);
-        const game = window.application.game;
-        game.timer = 0;
-        game.difficult = "";
-        game.cards = [];
-        const user = window.application.user;
-        user.count = 0;
-        user.cards = [];
-        window.application.timers = [];
-        const app = document.querySelector("#app");
-        startGameScreen(app);
-    });
 };

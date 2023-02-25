@@ -1,11 +1,11 @@
-export const clearTimers = (timers) => {
+export const clearTimers = (timers: Array<NodeJS.Timer>) => {
     timers.forEach((timer) => {
         clearTimeout(timer);
     });
 };
 
-export const generateCard = (values, suits) => {
-    const cards = [];
+export const generateCard = (values: string[], suits: string[]) => {
+    const cards: Array<string> = [];
     suits.forEach((suit) => {
         values.forEach((value) => {
             const card = `${value}${suit}`;
@@ -15,10 +15,10 @@ export const generateCard = (values, suits) => {
     return cards;
 };
 
-export const formatNumber = (number) => {
-    return number < 10 ? `0${number}` : number;
+export const formatNumber = (number: number) => {
+    return number < 10 ? `0${number}` : `${number}`;
 };
-export const gameCards = (cards, length) => {
+export const gameCards = (cards: string[], length: number) => {
     let gameCard = [];
     let i = 0;
     while (i < length) {
@@ -33,6 +33,10 @@ export const gameCards = (cards, length) => {
     return gameCard;
 };
 
-export const shuffle = (array) => {
+const shuffle = (array: Array<string>) => {
     array.sort(() => Math.random() - 0.5);
+};
+
+export const compareString = (str1: string, str2: string): boolean => {
+    return str1 === str2;
 };
