@@ -33,6 +33,10 @@ export const gameCards = (cards: string[], length: number) => {
     return gameCard;
 };
 
-export const shuffle = (array: Array<string>) => {
+const shuffle = (array: Array<string>) => {
     array.sort(() => Math.random() - 0.5);
+};
+
+export const compareString = (str1: string, str2: string): boolean => {
+    return str1 === str2;
 };

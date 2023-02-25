@@ -1,5 +1,5 @@
-import { clearTimers, formatNumber } from "../../ts/helper";
-import { startGameScreen } from "../screens/startGameScreen";
+import { formatNumber } from "../../ts/helper";
+import { renderButton } from "./button";
 export const renderModal = (container: HTMLElement, win: boolean) => {
     if (!(container instanceof HTMLElement)) {
         console.log("Передан неверный элемент");
@@ -39,23 +39,5 @@ export const renderModal = (container: HTMLElement, win: boolean) => {
     timer.textContent = `${min}:${sec}`;
     modal.appendChild(timer);
 
-    const btn = document.createElement("button");
-    btn.textContent = "Играть снова";
-    btn.classList.add("btn");
-    modal.appendChild(btn);
-
-    btn.addEventListener("click", () => {
-        const timers = window.application.timers;
-        clearTimers(timers);
-        const game = window.application.game;
-        game.time = 0;
-        game.difficult = "";
-        game.cards = [];
-        const user = window.application.user;
-        user.count = 0;
-        user.cards = [];
-        window.application.timers = [];
-        const app = document.querySelector("#app") as HTMLElement;
-        startGameScreen(app);
-    });
+    renderButton(modal, "Играть заново");
 };

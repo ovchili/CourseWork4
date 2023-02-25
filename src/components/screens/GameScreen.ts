@@ -1,11 +1,6 @@
-import {
-    clearTimers,
-    formatNumber,
-    gameCards,
-    generateCard,
-} from "../../ts/helper";
+import { formatNumber, gameCards, generateCard } from "../../ts/helper";
+import { renderButton } from "../blocks/button";
 import { renderCard } from "../blocks/card";
-import { startGameScreen } from "./startGameScreen";
 const VALUES = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const SUITS = ["C", "D", "H", "S"];
 
@@ -45,10 +40,7 @@ export const GameScreen = (container: HTMLElement) => {
     btnBox.classList.add("game__btn");
     header.appendChild(btnBox);
 
-    const btn = document.createElement("button");
-    btn.classList.add("btn");
-    btn.textContent = "Начать заново";
-    btnBox.appendChild(btn);
+    renderButton(btnBox, "Начать заново");
 
     const main = document.createElement("main");
     main.classList.add("game__main");
@@ -82,19 +74,4 @@ export const GameScreen = (container: HTMLElement) => {
             }, 1000)
         );
     }, 5000);
-
-    btn.addEventListener("click", () => {
-        const timers = window.application.timers;
-        clearTimers(timers);
-        const game = window.application.game;
-        game.time = 0;
-        game.difficult = "";
-        game.cards = [];
-        const user = window.application.user;
-        user.count = 0;
-        user.cards = [];
-        window.application.timers = [];
-        const app = document.querySelector("#app") as HTMLElement;
-        startGameScreen(app);
-    });
 };

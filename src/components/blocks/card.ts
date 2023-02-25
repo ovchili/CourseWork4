@@ -1,9 +1,5 @@
-import { clearTimers } from "../../ts/helper";
+import { clearTimers, compareString } from "../../ts/helper";
 import { renderModal } from "./modal";
-
-const compare = (str1: string, str2: string) => {
-    return str1 === str2;
-};
 
 export const renderCard = (
     container: HTMLElement,
@@ -55,7 +51,7 @@ export const renderCard = (
             user.count += 1;
             user.cards.push(target.value);
         } else {
-            const result = compare(
+            const result = compareString(
                 target.value,
                 user.cards[user.cards.length - 1]
             );
