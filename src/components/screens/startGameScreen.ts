@@ -22,6 +22,7 @@ export const startGameScreen = (container: HTMLElement) => {
     const radioButtonBox = document.createElement("div");
     radioButtonBox.classList.add("start__box");
     form.appendChild(radioButtonBox);
+
     renderRadioButton(radioButtonBox, "difficult", "easy", ["start__input"]);
     renderLabel(radioButtonBox, "difficult_easy", "1", ["start__label"]);
     renderRadioButton(radioButtonBox, "difficult", "medium", ["start__input"]);

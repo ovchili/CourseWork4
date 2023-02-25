@@ -1,12 +1,12 @@
 import { formatNumber, gameCards, generateCard } from "../../ts/helper";
 import { renderButton } from "../blocks/button";
 import { renderCard } from "../blocks/card";
-const VALUES = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-const SUITS = ["C", "D", "H", "S"];
+const VALUES: string[] = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+const SUITS: string[] = ["C", "D", "H", "S"];
 
 export const GameScreen = (container: HTMLElement) => {
     container.textContent = "";
-    window.application.cards = generateCard(VALUES, SUITS);
+    window.application.cards = generateCard(VALUES, SUITS) as string[];
     window.application.game.cards = gameCards(
         window.application.cards,
         window.application.counts[`${window.application.game.difficult}`]
